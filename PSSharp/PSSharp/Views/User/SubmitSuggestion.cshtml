@@ -4,13 +4,16 @@
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ViewBag.Title</h1>
     <h2>@ViewBag.Message</h2>
 </hgroup>
 
 <section>
 
     <script type="text/javascript">
+        $(function () {
+            $("form").validate();
+        });
         function OnSuccess(data) {
             $('textarea').val('');
             alert("Инициатива успешно подана");
@@ -32,19 +35,19 @@
                 <td>
                     <label for="Problem">Проблема</label></td>
                 <td>
-                    <textarea id="Problem" name="Problem" rows="6"></textarea></td>
+                    <textarea id="Problem" name="Problem" rows="6" class="required"></textarea></td>
             </tr>
             <tr>
                 <td>
                     <label for="Solution">Решение</label></td>
                 <td>
-                    <textarea id="Solution" name="Solution" rows="6"></textarea></td>
+                    <textarea id="Solution" name="Solution" rows="6" class="required"></textarea></td>
             </tr>
             <tr>
                 <td>
                     <label for="Result">Результат</label></td>
                 <td>
-                    <textarea id="Result" name="Result" rows="6"></textarea></td>
+                    <textarea id="Result" name="Result" rows="6" class="required"></textarea></td>
             </tr>
         </table>
         <input type="submit" value="Отправить" />

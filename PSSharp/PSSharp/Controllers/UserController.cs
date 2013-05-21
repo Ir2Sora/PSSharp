@@ -22,6 +22,7 @@ namespace PSSharp.Controllers
             //au
             sugg.UserId = 1;
             sugg.DateOfReceipt = DateTime.Now;
+            sugg.Status = Statuses.Processed;
             _db.Suggestions.Add(sugg);
             _db.SaveChanges();
             return new EmptyResult();
