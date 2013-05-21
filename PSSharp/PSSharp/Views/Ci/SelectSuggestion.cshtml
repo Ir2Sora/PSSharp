@@ -1,0 +1,61 @@
+﻿@using System.Web.Script.Serialization
+@using PSSharp
+@using PSSharp.Models
+@model PSSharp.Models.Suggestion
+
+@{
+    ViewBag.Title = "Отбор";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<script>
+    $(function () {
+        $("#DateOfReceipt").datepicker();
+        $("#DateOfConsideration").datepicker();
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Suggestion</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SuggestionId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SuggestionId)
+            @Html.ValidationMessageFor(model => model.SuggestionId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.EnumDropDownListFor(model => model.Status)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateOfReceipt)
+        </div>
+        <div class="editor-field">
+            <input type="text" id="DateOfReceipt" name="DateOfReceipt" />
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateOfConsideration)
+        </div>
+        <div class="editor-field">
+            <input type="text" id="DateOfConsideration" name="DateOfConsideration" />
+        </div>
+
+        <p>
+            <input type="submit" value="Отбор" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

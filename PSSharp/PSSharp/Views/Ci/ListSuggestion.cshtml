@@ -1,0 +1,25 @@
+﻿@model IEnumerable<PSSharp.Models.Suggestion>
+
+@{
+    ViewBag.Title = "ListSuggestion";
+}
+
+<hgroup class="title">
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<section class="contact">
+    <table>
+        @foreach (var sugg in Model)
+        {
+            <tr>
+                <td>
+                    @sugg.View()
+                </td>
+                <td>
+                    @Html.ActionLink("Просмотр", "ManageSuggestion", new { id = sugg.SuggestionId })
+                </td>
+            </tr>
+        }
+    </table>
+</section>

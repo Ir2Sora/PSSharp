@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <title>Система обработки инициатив</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/themes/base/jquery.ui.all.css")
+        @Styles.Render("~/Content/themes/base/ui.jqgrid.css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/scripts/jquery-ui-1.8.20.js")
+        @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+        @Scripts.Render("~/scripts/jquery.jqGrid.min.js")
+        @Scripts.Render("~/scripts/grid.locale-ru.js")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("PSSharp", "Index", "Home")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Подача инициативы", "SubmitSuggestion", "User")</li>
+                            <li>@Html.ActionLink("Просмотр своих инициатив", "ViewOwnSuggestions", "User")</li>
+                            <li>@Html.ActionLink("Управление инициативами", "SelectSuggestion", "CI")</li>
+                            <li>@Html.ActionLink("Написать заключение", "WritePeerReview", "Expert")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

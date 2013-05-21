@@ -1,0 +1,125 @@
+﻿@using PSSharp.Models
+@model PSSharp.Models.Suggestion
+
+@{
+    ViewBag.Title = "Управление инициативой";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Управление инициативой</h2>
+<script>
+    $(document).ready(function () {
+        $('#DateOfConsideration').datepicker({ dateFormat: "yy.mm.dd" });
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Suggestion</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SuggestionId)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.SuggestionId)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.EnumDropDownListFor(model => model.Status)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Problem)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Problem)
+            @Html.ValidationMessageFor(model => model.Problem)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Solution)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Solution)
+            @Html.ValidationMessageFor(model => model.Solution)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Result)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Result)
+            @Html.ValidationMessageFor(model => model.Result)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateOfReceipt)
+        </div>
+        <div class="editor-field">
+            @Model.DateOfReceiptView()
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateOfConsideration)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.DateOfConsideration, new { @class = "date", @Value = string.Format("{0:yyyy/MM/dd}",Model.DateOfConsideration) })
+        </div>
+        
+        @Html.HiddenFor(model => model.SuggestionId)
+        @Html.HiddenFor(model => model.DateOfReceipt)
+        @Html.HiddenFor(model => model.UserId)
+
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+        
+        <p>
+            Направления
+        </p>
+
+        <table>
+            <tr>
+                <th>
+                    SuggestionId
+                </th>
+                <th>
+                    DepartmentId
+                </th>
+                <th>
+                    Conclusion
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Directions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SuggestionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Conclusion)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <p>
+            @Html.ActionLink("Добавить направление", "addDirection", new { id = Model.SuggestionId })
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
