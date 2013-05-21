@@ -335,6 +335,7 @@
     <Content Include="Views\Ci\ListSuggestion.cshtml" />
     <Content Include="Views\Ci\ManageSuggestion.cshtml" />
     <Content Include="Views\Ci\AddDirection.cshtml" />
+    <Content Include="Views\Ci\EditDirection.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

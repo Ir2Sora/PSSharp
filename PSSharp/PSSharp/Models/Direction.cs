@@ -14,6 +14,12 @@ namespace PSSharp.Models
         public virtual Department Department { get; set; }
         [Display(Name = "Заключение")]
         public virtual string Conclusion { get; set; }
+        [Display(Name = "Статус")]
         public virtual Statuses Status { get; set; }
+
+        public bool ReceivedPeerReview()
+        {
+            return Status == Statuses.ReceivedPeerReview;
+        }
     }
 }

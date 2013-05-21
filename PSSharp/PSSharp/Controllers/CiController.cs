@@ -36,6 +36,7 @@ namespace PSSharp.Controllers
         [HttpPost]
         public ActionResult AddDirection(Direction direction)
         {
+            direction.Status = Statuses.RequestedPeerReview;
             _db.Entry(direction).State = EntityState.Added;
             _db.SaveChanges();
             return RedirectToAction("ManageSuggestion", new { id = direction.SuggestionId });
@@ -44,10 +45,6 @@ namespace PSSharp.Controllers
         [HttpGet]
         public ActionResult SelectSuggestion()
         {
-            var statuses = from Statuses s in Enum.GetValues(typeof(Statuses))
-                           select new { ID = s, Name = s.ToString() };
-            
-            ViewData["statuses"] = new SelectList(statuses, "ID", "Name");
             return View();
         }
 
@@ -60,6 +57,21 @@ namespace PSSharp.Controllers
                       (sugg.DateOfConsideration == null || s.DateOfConsideration == sugg.DateOfConsideration) &&
                       (sugg.DateOfReceipt == null || s.DateOfReceipt == sugg.DateOfReceipt));
             return View("ListSuggestion", resultList);
+        }
+
+        [HttpGet]
+        public ActionResult EditDirection(int id)
+        {
+            var result = _db.Directions.First(d => d.DirectionId == id);
+            return View(result);
+        }
+
+        [HttpPost]
+        public ActionResult EditDirection(Direction direction)
+        {
+            _db.Entry(direction).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("ManageSuggestion", new { id = direction.SuggestionId });
         }
     }
 }

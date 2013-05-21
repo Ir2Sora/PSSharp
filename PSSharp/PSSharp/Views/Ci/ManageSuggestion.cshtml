@@ -87,9 +87,11 @@
         <tr>
             <th>Номер отдела
             </th>
-            <th>
+            <th>Статус
             </th>
             <th>Заключение
+            </th>
+            <th>
             </th>
         </tr>
 
@@ -100,10 +102,13 @@
                     @Html.DisplayFor(modelItem => item.DepartmentId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DepartmentId)
+                    @EnumExtension.GetDescription(item.Status)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Conclusion)
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "editDirection", new { id = item.DirectionId})
                 </td>
             </tr>
         }
