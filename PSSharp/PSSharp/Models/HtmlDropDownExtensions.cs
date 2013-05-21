@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
@@ -20,7 +21,7 @@ namespace PSSharp.Models
             IEnumerable<SelectListItem> items =
                 values.Select(value => new SelectListItem
                 {
-                    Text = value.ToString(),
+                    Text = GetDescription(value),
                     Value = value.ToString(),
                     Selected = value.Equals(metadata.Model)
                 });
@@ -43,6 +44,17 @@ namespace PSSharp.Models
                 realModelType = underlyingType;
             }
             return realModelType;
+        }
+
+        private static string GetDescription(object o)
+        {
+            Enum enumValue = (Enum) o;
+            object[] attr = enumValue.GetType().GetField(enumValue.ToString())
+                .GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            return attr.Length > 0
+               ? ((DescriptionAttribute)attr[0]).Description
+               : enumValue.ToString();
         }
     }
 }

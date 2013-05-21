@@ -1,12 +1,20 @@
-﻿namespace PSSharp.Models
+﻿using System.ComponentModel;
+
+namespace PSSharp.Models
 {
     public enum Statuses
     {
-        Processed, 
-        RequireImprovement, 
-        Adoption, 
-        Rejected, 
-        RequestedPeerReview, 
+        [Description("Рассматривается")]
+        Processed,
+        [Description("Требует доработки")]
+        RequireImprovement,
+        [Description("Принята")]
+        Adoption,
+        [Description("Отклонена")]
+        Rejected,
+        [Description("Запрошена оценка")]
+        RequestedPeerReview,
+        [Description("Получена оценка")]
         ReceivedPeerReview
     }
 }
