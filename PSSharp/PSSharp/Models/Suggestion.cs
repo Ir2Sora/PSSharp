@@ -37,6 +37,11 @@ namespace PSSharp.Models
             return String.Format("{0:yyyy/MM/dd}", DateOfReceipt);
         }
 
+        public bool NeedImrovement()
+        {
+            return Status == Statuses.RequireImprovement;
+        }
+
         public string View()
         {
             var sb = new StringBuilder();

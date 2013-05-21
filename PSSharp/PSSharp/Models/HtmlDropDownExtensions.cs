@@ -21,7 +21,7 @@ namespace PSSharp.Models
             IEnumerable<SelectListItem> items =
                 values.Select(value => new SelectListItem
                 {
-                    Text = GetDescription(value),
+                    Text = EnumExtension.GetDescription(value),
                     Value = value.ToString(),
                     Selected = value.Equals(metadata.Model)
                 });
@@ -44,17 +44,6 @@ namespace PSSharp.Models
                 realModelType = underlyingType;
             }
             return realModelType;
-        }
-
-        private static string GetDescription(object o)
-        {
-            Enum enumValue = (Enum) o;
-            object[] attr = enumValue.GetType().GetField(enumValue.ToString())
-                .GetCustomAttributes(typeof(DescriptionAttribute), false);
-
-            return attr.Length > 0
-               ? ((DescriptionAttribute)attr[0]).Description
-               : enumValue.ToString();
         }
     }
 }

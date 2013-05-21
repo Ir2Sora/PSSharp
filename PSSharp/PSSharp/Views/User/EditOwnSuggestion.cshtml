@@ -1,4 +1,5 @@
-﻿@model PSSharp.Models.Suggestion
+﻿@using PSSharp.Models
+@model PSSharp.Models.Suggestion
 
 @{
     ViewBag.Title = "Просмотр инициативы";
@@ -7,50 +8,84 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Suggestion</legend>
 
         @Html.HiddenFor(model => model.SuggestionId)
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.SuggestionId)
         </div>
         <div class="">
             @Html.DisplayFor(model => model.SuggestionId)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Status)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.Status)
+            @EnumExtension.GetDescription(Model.Status)
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Problem)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Problem)
-            @Html.ValidationMessageFor(model => model.Problem)
+            @if (Model.NeedImrovement())
+            {
+                <div class="editor-label">
+                    @Html.EditorFor(model => model.Problem)
+                    @Html.ValidationMessageFor(model => model.Problem)
+                </div>
+            }
+            else
+            {
+                <div class="editor-field">
+                    @Html.DisplayTextFor(model => model.Problem)
+                </div>
+            }
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Solution)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Solution)
-            @Html.ValidationMessageFor(model => model.Solution)
+            @if (Model.NeedImrovement())
+            {
+                <div class="editor-label">
+                    @Html.EditorFor(model => model.Solution)
+                    @Html.ValidationMessageFor(model => model.Solution)
+                </div>
+            }
+            else
+            {
+                <div class="editor-field">
+                    @Html.DisplayTextFor(model => model.Solution)
+                </div>
+            }
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Result)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Result)
-            @Html.ValidationMessageFor(model => model.Result)
+            @if (Model.NeedImrovement())
+            {
+                <div class="editor-label">
+                    @Html.EditorFor(model => model.Result)
+                    @Html.ValidationMessageFor(model => model.Result)
+                </div>
+            }
+            else
+            {
+                <div class="editor-field">
+                    @Html.DisplayTextFor(model => model.Result)
+                </div>
+            }
         </div>
 
         <div class="editor-label">
@@ -66,12 +101,15 @@
         <div class="editor-field">
             @Model.DateOfConsiderationView()
         </div>
-        
+
         @Html.HiddenFor(model => model.UserId)
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        @if (Model.NeedImrovement())
+        {
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        }
     </fieldset>
 }
 
