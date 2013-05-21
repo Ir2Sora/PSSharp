@@ -26,7 +26,7 @@
         <div class="editor-field">
             @Html.DisplayFor(model => model.SuggestionId)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Status)
         </div>
@@ -69,9 +69,9 @@
             @Html.LabelFor(model => model.DateOfConsideration)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(m => m.DateOfConsideration, new { @class = "date", @Value = string.Format("{0:yyyy/MM/dd}",Model.DateOfConsideration) })
+            @Html.TextBoxFor(m => m.DateOfConsideration, new { @class = "date", @Value = string.Format("{0:yyyy/MM/dd}", Model.DateOfConsideration) })
         </div>
-        
+
         @Html.HiddenFor(model => model.SuggestionId)
         @Html.HiddenFor(model => model.DateOfReceipt)
         @Html.HiddenFor(model => model.UserId)
@@ -79,45 +79,40 @@
         <p>
             <input type="submit" value="Сохранить" />
         </p>
-        
-        <p>
-            Направления
-        </p>
 
-        <table>
-            <tr>
-                <th>
-                    SuggestionId
-                </th>
-                <th>
-                    DepartmentId
-                </th>
-                <th>
-                    Conclusion
-                </th>
-            </tr>
-
-            @foreach (var item in Model.Directions)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SuggestionId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartmentId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Conclusion)
-                    </td>
-                </tr>
-            }
-
-        </table>
-
-        <p>
-            @Html.ActionLink("Добавить направление", "addDirection", new { id = Model.SuggestionId })
-        </p>
     </fieldset>
+
+    <h2>Направления</h2>
+    <table>
+        <tr>
+            <th>Номер отдела
+            </th>
+            <th>
+            </th>
+            <th>Заключение
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Directions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Conclusion)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <p>
+        @Html.ActionLink("Добавить направление", "addDirection", new { id = Model.SuggestionId })
+    </p>
 }
 
 @section Scripts {

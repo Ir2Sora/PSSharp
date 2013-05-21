@@ -1,25 +1,17 @@
 ﻿@model PSSharp.Models.Direction
 
 @{
-    ViewBag.Title = "AddDirection";
+    ViewBag.Title = "Создание направления";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AddDirection</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Direction</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SuggestionId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SuggestionId)
-            @Html.ValidationMessageFor(model => model.SuggestionId)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.DepartmentId)
@@ -40,6 +32,8 @@
         <p>
             <input type="submit" value="Create" />
         </p>
+        
+        <input type="hidden" value="@ViewBag.SuggestionId" id="SuggestionId" name="SuggestionId"/>
     </fieldset>
 }
 

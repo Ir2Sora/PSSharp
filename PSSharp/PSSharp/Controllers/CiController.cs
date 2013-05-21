@@ -27,8 +27,9 @@ namespace PSSharp.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddDirection()
+        public ActionResult AddDirection(int id)
         {
+            ViewBag.SuggestionId = id;
             return View();
         }
 
