@@ -1,0 +1,82 @@
+﻿@model PSSharp.Models.Direction
+
+@{
+    ViewBag.Title = "Экспертная оценка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Suggestion</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suggestion.SuggestionId)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Suggestion.SuggestionId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suggestion.Problem)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Suggestion.Problem)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suggestion.Solution)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Suggestion.Solution)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suggestion.Result)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Suggestion.Result)
+            @Html.ValidationMessageFor(model => model.Suggestion.Result)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Conclusion)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Conclusion)
+            @Html.ValidationMessageFor(model => model.Conclusion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suggestion.DateOfReceipt)
+        </div>
+        <div class="editor-field">
+            @Model.Suggestion.DateOfReceiptView()
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suggestion.DateOfConsideration)
+        </div>
+        <div class="editor-field">
+            @Model.Suggestion.DateOfConsiderationView()
+        </div>
+
+        @Html.HiddenFor(model => model.SuggestionId)
+        @Html.HiddenFor(model => model.DepartmentId)
+        @Html.HiddenFor(model => model.DirectionId)
+
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

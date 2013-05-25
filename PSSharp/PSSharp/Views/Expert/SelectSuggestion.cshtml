@@ -1,0 +1,22 @@
+﻿@model IEnumerable<PSSharp.Models.Direction>
+
+@{
+    ViewBag.Title = "Выбор инициативы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table>
+    @foreach (var dir in Model)
+    {
+        <tr>
+            <td>
+                @dir.Suggestion.View()
+            </td>
+            <td>
+                @Html.ActionLink("Просмотр", "WritePeerReview", new { id = dir.DirectionId })
+            </td>
+        </tr>
+    }
+</table>
