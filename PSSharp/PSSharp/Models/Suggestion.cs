@@ -10,6 +10,7 @@ namespace PSSharp.Models
         [Display(Name = "Номер инициативы")]
         public virtual int? SuggestionId { get; set; }
         public virtual int? UserId { get; set; }
+        [Display(Name = "Инициатор")]
         public virtual User User { get; set; }
         [Display(Name = "Проблема")]
         public virtual string Problem { get; set; }
@@ -43,6 +44,14 @@ namespace PSSharp.Models
         }
 
         public string View()
+        {
+            var sb = new StringBuilder();
+            sb.Append(LocalView());
+            sb.Append(", Инициатор ").Append(User.View());
+            return sb.ToString();
+        }
+
+        public string LocalView()
         {
             var sb = new StringBuilder();
             sb.Append("№ ").Append(SuggestionId);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity;
 using System.Web.Mvc;
 using PSSharp.Models;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace PSSharp.Controllers
         [HttpGet]
         public ActionResult ManageSuggestion(int id)
         {
-            var result = _db.Suggestions.First(s => s.SuggestionId == id);
-            result.Directions = _db.Directions.Where(d => d.SuggestionId == id).ToList();
+            var result = _db.Suggestions.Where(s => s.SuggestionId == id)
+                .Include(s => s.Directions)
+                .Include(s => s.User)
+                .FirstOrDefault();
             return View(result);
         }
 
@@ -55,7 +58,8 @@ namespace PSSharp.Controllers
                 (s => (sugg.SuggestionId == null || s.SuggestionId == sugg.SuggestionId) && 
                       (sugg.Status == null || s.Status == sugg.Status) &&
                       (sugg.DateOfConsideration == null || s.DateOfConsideration == sugg.DateOfConsideration) &&
-                      (sugg.DateOfReceipt == null || s.DateOfReceipt == sugg.DateOfReceipt));
+                      (sugg.DateOfReceipt == null || s.DateOfReceipt == sugg.DateOfReceipt))
+                .Include(s => s.User);
             return View("ListSuggestion", resultList);
         }
 

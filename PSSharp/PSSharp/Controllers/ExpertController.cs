@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using PSSharp.Models;
@@ -12,8 +13,9 @@ namespace PSSharp.Controllers
         [HttpGet]
         public ActionResult WritePeerReview(int id)
         {
-            var result = _db.Directions.First(d => d.DirectionId == id);
-            result.Suggestion = _db.Suggestions.First(s => s.SuggestionId == result.SuggestionId);
+            var result = _db.Directions.Where(d => d.DirectionId == id)
+                                        .Include(d => d.Suggestion)
+                                        .Include(d => d.Suggestion.User).First();
             return View(result);
         }
 
@@ -30,11 +32,9 @@ namespace PSSharp.Controllers
         {
             //au
             int departmentID = 1;
-            var result = _db.Directions.Where(d => d.DepartmentId == departmentID && d.Status == Statuses.RequestedPeerReview).ToList();
-            foreach (var direction in result)
-            {
-                direction.Suggestion = _db.Suggestions.First(s => s.SuggestionId == direction.SuggestionId);
-            }
+            var result = _db.Directions.Where(d => d.DepartmentId == departmentID && d.Status == Statuses.RequestedPeerReview)
+                                        .Include(d => d.Suggestion)
+                                        .Include(d => d.Suggestion.User).ToList();
             return View(result);
         }
     }

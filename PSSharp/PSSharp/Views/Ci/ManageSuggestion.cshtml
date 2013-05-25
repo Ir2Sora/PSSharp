@@ -26,6 +26,13 @@
         <div class="editor-field">
             @Html.DisplayFor(model => model.SuggestionId)
         </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User)
+        </div>
+        <div class="editor-field">
+            @Model.User.View()
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Status)

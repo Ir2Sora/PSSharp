@@ -1,4 +1,6 @@
 ﻿
+using System.Text;
+
 namespace PSSharp.Models
 {
     public class User
@@ -12,5 +14,17 @@ namespace PSSharp.Models
         public virtual string Email { get; set; }
         public virtual int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
+
+        public string View()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Surname)
+              .Append(" ")
+              .Append(FirstName.Substring(0, 1))
+              .Append(".")
+              .Append(Patronymic.Substring(0, 1))
+              .Append(".");
+            return sb.ToString();
+        }
     }
 }
