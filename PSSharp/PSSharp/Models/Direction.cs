@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PSSharp.Models
 {
@@ -8,14 +9,13 @@ namespace PSSharp.Models
         public virtual int DirectionId { get; set; }
         [Display(Name = "Номер инициативы")]
         public virtual int SuggestionId { get; set; }
+        public virtual Suggestion Suggestion { get; set; }
         [Display(Name = "Номер отдела")]
         public virtual int DepartmentId { get; set; }
-        public virtual Suggestion Suggestion { get; set; }
         public virtual Department Department { get; set; }
-        [Display(Name = "Заключение")]
-        public virtual string Conclusion { get; set; }
         [Display(Name = "Статус")]
         public virtual Statuses Status { get; set; }
+        public virtual List<PeerReview> PeerReviews { get; set; }
 
         public bool ReceivedPeerReview()
         {
