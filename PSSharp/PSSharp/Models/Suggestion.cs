@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PSSharp.Models
@@ -27,6 +28,8 @@ namespace PSSharp.Models
         public virtual List<Direction> Directions { get; set; }
         [Display(Name = "Статус")]
         public virtual Statuses? Status { get; set; }
+        [NotMapped]
+        public virtual Statuses? oldStatus { get; set; }
 
         public string DateOfConsiderationView()
         {

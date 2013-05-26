@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using ActionMailer.Net.Mvc;
 using PSSharp.Models;
 
 namespace PSSharp.Controllers

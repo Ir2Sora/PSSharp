@@ -43,6 +43,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionMailer.Net">
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ActionMailer.Net.Mvc">
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -167,7 +173,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CiController.cs" />
-    <Compile Include="Controllers\Default1Controller.cs" />
     <Compile Include="Controllers\ExpertController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -176,6 +181,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AutomatedDecision.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Models\HtmlDropDownExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Department.cs" />
@@ -192,6 +198,7 @@
     <Content Include="App_Data\pssdb_log.ldf">
       <DependentUpon>pssdb.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -217,12 +224,16 @@
     <Content Include="Content\themes\base\jquery.ui.core.css" />
     <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
     <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
     <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
     <Content Include="Content\themes\base\jquery.ui.resizable.css" />
     <Content Include="Content\themes\base\jquery.ui.selectable.css" />
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -244,17 +255,19 @@
     <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\themes\base\ui.jqgrid.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\Sorting icons.psd" />
-    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\back_disabled.png" />
     <Content Include="Images\back_enabled.png" />
     <Content Include="Images\back_enabled_hover.png" />
@@ -268,17 +281,19 @@
     <Content Include="Images\sort_desc.png" />
     <Content Include="Images\sort_desc_disabled.png" />
     <Content Include="Scripts\grid.locale-ru.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.8.20.js" />
-    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <None Include="Scripts\jquery-2.0.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.0.js" />
+    <Content Include="Scripts\jquery-2.0.0.min.js" />
+    <Content Include="Scripts\jquery-2.0.0.min.map" />
+    <Content Include="Scripts\jquery-ui-1.10.3.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.jgrowl.js" />
     <Content Include="Scripts\jquery.jgrowl.min.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -327,19 +342,14 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\User\SubmitSuggestion.cshtml" />
     <Content Include="Views\User\ViewOwnSuggestions.cshtml" />
-    <Content Include="Views\Default1\Index.cshtml" />
-    <Content Include="Views\Default1\Details.cshtml" />
-    <Content Include="Views\Default1\Create.cshtml" />
-    <Content Include="Views\Default1\Edit.cshtml" />
-    <Content Include="Views\Default1\Delete.cshtml" />
     <Content Include="Views\User\EditOwnSuggestion.cshtml" />
     <Content Include="Views\Ci\SelectSuggestion.cshtml" />
     <Content Include="Views\Ci\ListSuggestion.cshtml" />
     <Content Include="Views\Ci\ManageSuggestion.cshtml" />
-    <Content Include="Views\Ci\AddDirection.cshtml" />
     <Content Include="Views\Ci\ViewDirection.cshtml" />
     <Content Include="Views\Expert\WritePeerReview.cshtml" />
     <Content Include="Views\Expert\SelectSuggestion.cshtml" />
+    <Content Include="Views\Email\EmailView.html.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

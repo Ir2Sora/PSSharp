@@ -1,0 +1,10 @@
+﻿@using PSSharp.Models
+@model Suggestion
+@{
+    Layout = null;
+}
+<html>
+    <body>
+        У инициатива под номером @Model.SuggestionId был изменен статус с  "@EnumExtension.GetDescription(Model.oldStatus)" на  "@EnumExtension.GetDescription(Model.Status)"
+    </body>
+</html>

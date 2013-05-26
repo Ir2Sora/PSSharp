@@ -27,8 +27,19 @@ namespace PSSharp.Controllers
         [HttpPost]
         public ActionResult ManageSuggestion(Suggestion sugg)
         {
+            Suggestion oldSuggestion = _db.Suggestions.First(s => s.SuggestionId == sugg.SuggestionId);
+            Statuses oldStatus = (Statuses) oldSuggestion.Status;
+            _db.Entry(oldSuggestion).State = EntityState.Detached;
+            Statuses newStatus = (Statuses) sugg.Status;
             _db.Entry(sugg).State = EntityState.Modified;
             _db.SaveChanges();
+            if (oldStatus != newStatus)
+            {
+                var newSuggestion = _db.Suggestions.Where(s => s.SuggestionId == sugg.SuggestionId)
+                                                   .Include(s => s.User).First();
+                newSuggestion.oldStatus = oldStatus;
+                EmailController.SendEmail(newSuggestion);
+            }
             return RedirectToAction("ManageSuggestion", new { id = sugg.SuggestionId });
         }
 
