@@ -17,7 +17,7 @@
             @Html.LabelFor(model => model.DepartmentId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.DepartmentId)
+            @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>) ViewData["Departments"])
             @Html.ValidationMessageFor(model => model.DepartmentId)
         </div>
         <p>

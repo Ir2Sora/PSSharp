@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Objects.SqlClient;
+using System.Globalization;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using PSSharp.Models;
 using System.Linq;
 
@@ -33,6 +37,7 @@ namespace PSSharp.Controllers
         public ActionResult AddDirection(int id)
         {
             ViewData["SuggestionId"] = id;
+            ViewData["Departments"] = GenerateDepartments();
             return View();
         }
 
@@ -81,6 +86,17 @@ namespace PSSharp.Controllers
             result.Status = direction.Status;
             _db.SaveChanges();
             return RedirectToAction("ManageSuggestion", new { id = result.SuggestionId });
+        }
+
+        private List<SelectListItem> GenerateDepartments()
+        {
+            var departments = (from d in _db.Departments
+                               select new SelectListItem
+                               {
+                                   Text = d.ShortName,
+                                   Value = SqlFunctions.StringConvert((double)d.DepartmentId).Trim()
+                               });
+            return departments.ToList();
         }
     }
 }
