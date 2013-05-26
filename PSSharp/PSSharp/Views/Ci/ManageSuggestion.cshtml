@@ -96,7 +96,9 @@
             </th>
             <th>Статус
             </th>
-            <th>Заключение
+            <th>Одобрено
+            </th>
+            <th>Отклонено
             </th>
             <th>
             </th>
@@ -112,10 +114,13 @@
                     @EnumExtension.GetDescription(item.Status)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Conclusion)
+                    @item.Approved()
                 </td>
                 <td>
-                    @Html.ActionLink("Редактировать", "editDirection", new { id = item.DirectionId})
+                    @item.Rejected()
+                </td>
+                <td>
+                    @Html.ActionLink("Просмотр", "ViewDirection", new { id = item.DirectionId})
                 </td>
             </tr>
         }

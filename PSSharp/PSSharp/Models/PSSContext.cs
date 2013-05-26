@@ -12,5 +12,6 @@ namespace PSSharp.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Suggestion> Suggestions { get; set; }
         public DbSet<Direction> Directions { get; set; }
+        public DbSet<PeerReview> PeerReviews { get; set; }
     }
 }

@@ -32,13 +32,16 @@ namespace PSSharp.Controllers
         [HttpGet]
         public ActionResult AddDirection(int id)
         {
-            ViewBag.SuggestionId = id;
+            ViewData["SuggestionId"] = id;
             return View();
         }
 
         [HttpPost]
         public ActionResult AddDirection(Direction direction)
         {
+            //au
+            direction.UserId = 1;
+            direction.When = DateTime.Now;
             direction.Status = Statuses.RequestedPeerReview;
             _db.Entry(direction).State = EntityState.Added;
             _db.SaveChanges();
@@ -64,18 +67,20 @@ namespace PSSharp.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditDirection(int id)
+        public ActionResult ViewDirection(int id)
         {
-            var result = _db.Directions.First(d => d.DirectionId == id);
+            var result = _db.Directions.Where(d => d.DirectionId == id)
+                                       .Include(d => d.PeerReviews.Select(p => p.User)).First();
             return View(result);
         }
 
         [HttpPost]
-        public ActionResult EditDirection(Direction direction)
+        public ActionResult ViewDirection(Direction direction)
         {
-            _db.Entry(direction).State = EntityState.Modified;
+            var result = _db.Directions.First(d => d.DirectionId == direction.DirectionId);
+            result.Status = direction.Status;
             _db.SaveChanges();
-            return RedirectToAction("ManageSuggestion", new { id = direction.SuggestionId });
+            return RedirectToAction("ManageSuggestion", new { id = result.SuggestionId });
         }
     }
 }

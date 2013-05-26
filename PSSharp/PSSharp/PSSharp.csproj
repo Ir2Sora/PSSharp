@@ -175,10 +175,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AutomatedDecision.cs" />
     <Compile Include="Models\HtmlDropDownExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Direction.cs" />
+    <Compile Include="Models\PeerReview.cs" />
     <Compile Include="Models\PSSContext.cs" />
     <Compile Include="Models\Statuses.cs" />
     <Compile Include="Models\Suggestion.cs" />
@@ -335,7 +337,7 @@
     <Content Include="Views\Ci\ListSuggestion.cshtml" />
     <Content Include="Views\Ci\ManageSuggestion.cshtml" />
     <Content Include="Views\Ci\AddDirection.cshtml" />
-    <Content Include="Views\Ci\EditDirection.cshtml" />
+    <Content Include="Views\Ci\ViewDirection.cshtml" />
     <Content Include="Views\Expert\WritePeerReview.cshtml" />
     <Content Include="Views\Expert\SelectSuggestion.cshtml" />
   </ItemGroup>

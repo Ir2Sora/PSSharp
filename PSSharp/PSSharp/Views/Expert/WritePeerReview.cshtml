@@ -1,4 +1,4 @@
-﻿@model PSSharp.Models.Direction
+﻿@model PSSharp.Models.PeerReview
 
 @{
     ViewBag.Title = "Экспертная оценка";
@@ -15,39 +15,45 @@
         <legend>Suggestion</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suggestion.SuggestionId)
+            @Html.LabelFor(model => model.Direction.Suggestion.SuggestionId)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.Suggestion.SuggestionId)
+            @Html.DisplayFor(model => model.Direction.Suggestion.SuggestionId)
         </div>
         
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suggestion.User)
+            @Html.LabelFor(model => model.Direction.Suggestion.User)
         </div>
         <div class="editor-field">
-            @Model.Suggestion.User.View()
+            @Model.Direction.Suggestion.User.View()
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suggestion.Problem)
+            @Html.LabelFor(model => model.Direction.Suggestion.Problem)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.Suggestion.Problem)
+            @Html.DisplayFor(model => model.Direction.Suggestion.Problem)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suggestion.Solution)
+            @Html.LabelFor(model => model.Direction.Suggestion.Solution)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.Suggestion.Solution)
+            @Html.DisplayFor(model => model.Direction.Suggestion.Solution)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suggestion.Result)
+            @Html.LabelFor(model => model.Direction.Suggestion.Result)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.Suggestion.Result)
-            @Html.ValidationMessageFor(model => model.Suggestion.Result)
+            @Html.DisplayFor(model => model.Direction.Suggestion.Result)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Recommended)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Recommended)
         </div>
         
         <div class="editor-label">
@@ -59,22 +65,20 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suggestion.DateOfReceipt)
+            @Html.LabelFor(model => model.Direction.Suggestion.DateOfReceipt)
         </div>
         <div class="editor-field">
-            @Model.Suggestion.DateOfReceiptView()
+            @Model.Direction.Suggestion.DateOfReceiptView()
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suggestion.DateOfConsideration)
+            @Html.LabelFor(model => model.Direction.Suggestion.DateOfConsideration)
         </div>
         <div class="editor-field">
-            @Model.Suggestion.DateOfConsiderationView()
+            @Model.Direction.Suggestion.DateOfConsiderationView()
         </div>
 
-        @Html.HiddenFor(model => model.SuggestionId)
-        @Html.HiddenFor(model => model.DepartmentId)
-        @Html.HiddenFor(model => model.DirectionId)
+        @Html.Hidden("DirectionId", Model.Direction.DirectionId)
 
         <p>
             <input type="submit" value="Сохранить" />

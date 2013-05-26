@@ -1,0 +1,90 @@
+﻿@using PSSharp.Models
+@model PSSharp.Models.Direction
+
+@{
+    ViewBag.Title = "Просмотр направления";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Direction</legend>
+
+        @Html.HiddenFor(model => model.DirectionId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SuggestionId)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.SuggestionId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DepartmentId)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.DepartmentId)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.EnumDropDownListFor(model => model.Status)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Одобрено")
+        </div>
+        <div class="editor-field">
+            @Model.Approved()
+        </div>
+        
+        <div class="editor-label">
+            @Html.Label("Отклонено")
+        </div>
+        <div class="editor-field">
+            @Model.Rejected()
+        </div>
+
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    </fieldset>
+    
+    <h2>Оценки</h2>
+    <table>
+        <tr>
+            <th>Эксперт
+            </th>
+            <th>Рекомендована
+            </th>
+            <th>Заключение
+            </th>
+        </tr>
+
+        @foreach (var item in Model.PeerReviews)
+        {
+            <tr>
+                <td>
+                    @item.User.View()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recommended)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Conclusion)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
