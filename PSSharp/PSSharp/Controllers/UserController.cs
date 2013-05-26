@@ -36,6 +36,14 @@ namespace PSSharp.Controllers
             return View(suggestions);
         }
 
+        public ActionResult ViewNeedImvrovement()
+        {
+            //au
+            var UserId = 1;
+            var suggestions = _db.Suggestions.Where(s => s.UserId == UserId && s.Status == Statuses.RequireImprovement).ToList();
+            return View("ViewOwnSuggestions", suggestions);
+        }
+
         [HttpGet]
         public ActionResult EditOwnSuggestion(int id)
         {
