@@ -26,7 +26,7 @@
         <div class="editor-field">
             @Html.DisplayFor(model => model.SuggestionId)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.User)
         </div>
@@ -88,8 +88,11 @@
         </p>
 
     </fieldset>
+}
 
-    <h2>Направления</h2>
+<h2>Направления</h2>
+@if (Model.Directions.Count != 0)
+{
     <table>
         <tr>
             <th>Номер отдела
@@ -100,8 +103,7 @@
             </th>
             <th>Отклонено
             </th>
-            <th>
-            </th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model.Directions)
@@ -120,16 +122,39 @@
                     @item.Rejected()
                 </td>
                 <td>
-                    @Html.ActionLink("Просмотр", "ViewDirection", new { id = item.DirectionId})
+                    @Html.ActionLink("Просмотр", "ViewDirection", new { id = item.DirectionId })
                 </td>
             </tr>
         }
 
     </table>
+}
 
+
+@using (Html.BeginForm("addDirection", "Ci"))
+{
+    
     <p>
-        @Html.ActionLink("Добавить направление", "addDirection", new { id = Model.SuggestionId })
+        <input type="submit" value="Добавить направление" />
     </p>
+    
+    @Html.ValidationSummary(true)
+    {
+        if (Model.SuggestionId != null)
+        {
+            var direction = new Direction();
+
+            <div class="editor-label">
+                @Html.LabelFor(m => direction.DepartmentId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>)ViewData["Departments"])
+                @Html.ValidationMessageFor(m => direction.DepartmentId)
+            </div>
+        }
+    }
+    
+    @Html.HiddenFor(model => model.SuggestionId)
 }
 
 @section Scripts {

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Objects.SqlClient;
-using System.Globalization;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using PSSharp.Models;
 using System.Linq;
 
@@ -22,6 +20,7 @@ namespace PSSharp.Controllers
                 .Include(s => s.Directions)
                 .Include(s => s.User)
                 .FirstOrDefault();
+            ViewData["Departments"] = GenerateDepartments(id);
             return View(result);
         }
 
@@ -33,15 +32,6 @@ namespace PSSharp.Controllers
             return RedirectToAction("ManageSuggestion", new { id = sugg.SuggestionId });
         }
 
-        [HttpGet]
-        public ActionResult AddDirection(int id)
-        {
-            ViewData["SuggestionId"] = id;
-            ViewData["Departments"] = GenerateDepartments();
-            return View();
-        }
-
-        [HttpPost]
         public ActionResult AddDirection(Direction direction)
         {
             //au
@@ -88,13 +78,14 @@ namespace PSSharp.Controllers
             return RedirectToAction("ManageSuggestion", new { id = result.SuggestionId });
         }
 
-        private List<SelectListItem> GenerateDepartments()
+        private List<SelectListItem> GenerateDepartments(int suggestionId)
         {
-            var departments = (from d in _db.Departments
+            var departments = (from dep in _db.Departments
+                               where !_db.Directions.Any(dir => dir.DepartmentId == dep.DepartmentId && dir.SuggestionId == suggestionId) 
                                select new SelectListItem
                                {
-                                   Text = d.ShortName,
-                                   Value = SqlFunctions.StringConvert((double)d.DepartmentId).Trim()
+                                   Text = dep.ShortName,
+                                   Value = SqlFunctions.StringConvert((double)dep.DepartmentId).Trim()
                                });
             return departments.ToList();
         }
