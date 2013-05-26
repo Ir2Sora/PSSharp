@@ -10,9 +10,16 @@
     <h2>@ViewBag.Message</h2>
 </hgroup>
 
-<td>
-    @Html.ActionLink("Требующие доработки", "ViewNeedImvrovement")
-</td>
+<table>
+    <tr>
+        <td>
+            @Html.ActionLink("Все", "ViewOwnSuggestions")
+        </td>
+        <td>
+            @Html.ActionLink("Требующие доработки", "ViewNeedImvrovement")
+        </td>
+    </tr>
+</table>
 
 <section class="contact">
     <table>
