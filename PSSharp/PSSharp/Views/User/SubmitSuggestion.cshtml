@@ -14,12 +14,20 @@
         $(function () {
             $("form").validate();
         });
-        function OnSuccess(data) {
+        function OnComplete(data) {
             $('textarea').val('');
             alert("Инициатива успешно подана");
         }
         function OnFailure(request, error) {
             alert("Произошла ошибка. Свяжитесь с администратором");
+        }
+        function OnSuccess(data) {
+            $('#send').removeAttr("disabled");
+            $('#send').attr('value', 'Отправить');
+        }
+        function OnBegin(request, error) {
+            $('#send').attr('disabled', 'disabled');
+            $('#send').attr('value', 'Обработка');
         }
     </script>
 
@@ -27,6 +35,8 @@
                                                     {
                                                         OnFailure = "OnFailure",
                                                         OnSuccess = "OnSuccess",
+                                                        OnComplete = "OnComplete",
+                                                        OnBegin = "OnBegin",
                                                     }))
     {
 
@@ -50,6 +60,6 @@
                     <textarea id="Result" name="Result" rows="6" class="required"></textarea></td>
             </tr>
         </table>
-        <input type="submit" value="Отправить" />
+        <input id="send" type="submit" value="Отправить" />
     }
 </section>

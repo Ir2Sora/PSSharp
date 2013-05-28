@@ -24,7 +24,7 @@ namespace PSSharp.Models
 
             if (direction.Rejected() * 1.0 / numberExpertsOnDepartment > thresholdForAutomaticDecision)
             {
-                direction.Status = Statuses.Rejected;
+                direction.Status = Statuses.AutomateRejected;
                 _db.SaveChanges();
             }
             else if (direction.PeerReviews.Count == numberExpertsOnDepartment)

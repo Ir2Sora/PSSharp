@@ -14,6 +14,8 @@ namespace PSSharp.Models
         Adoption,
         [Description("Отклонена")]
         Rejected,
+        [Description("Отклонена автоматически")]
+        AutomateRejected,
         [Description("Запрошена оценка")]
         RequestedPeerReview,
         [Description("Получена оценка")]
