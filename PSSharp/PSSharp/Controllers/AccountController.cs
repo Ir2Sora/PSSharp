@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.SqlClient;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -17,6 +18,7 @@ namespace PSSharp.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private readonly PSSContext _db = new PSSContext();
         //
         // GET: /Account/Login
 
@@ -63,7 +65,19 @@ namespace PSSharp.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewData["Departments"] = GenerateDepartments();
             return View();
+        }
+
+        private List<SelectListItem> GenerateDepartments()
+        {
+            var departments = (from dep in _db.Departments
+                               select new SelectListItem
+                               {
+                                   Text = dep.ShortName,
+                                   Value = SqlFunctions.StringConvert((double)dep.DepartmentId).Trim()
+                               });
+            return departments.ToList();
         }
 
         //
@@ -72,15 +86,17 @@ namespace PSSharp.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(User model)
         {
             if (ModelState.IsValid)
             {
                 // Попытка зарегистрировать пользователя
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.Login, model.Password, 
+                        new { FirstName = model.FirstName, Surname = model.Surname, Patronymic = model.Patronymic,
+                            DepartmentId = model.DepartmentId, Email = model.Email });
+                    WebSecurity.Login(model.Login, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -89,6 +105,7 @@ namespace PSSharp.Controllers
                 }
             }
 
+            ViewData["Departments"] = GenerateDepartments();
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }

@@ -13,10 +13,13 @@ namespace PSSharp.Models
         public virtual int? UserId { get; set; }
         [Display(Name = "Инициатор")]
         public virtual User User { get; set; }
+        [Required]
         [Display(Name = "Проблема")]
         public virtual string Problem { get; set; }
+        [Required]
         [Display(Name = "Решение")]
         public virtual string Solution { get; set; }
+        [Required]
         [Display(Name = "Результат")]
         public virtual string Result { get; set; }
         [Display(Name = "Дата подачи")]

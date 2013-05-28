@@ -29,10 +29,16 @@
                     </section>
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Подача инициативы", "SubmitSuggestion", "User")</li>
-                            <li>@Html.ActionLink("Просмотр своих инициатив", "ViewOwnSuggestions", "User")</li>
-                            <li>@Html.ActionLink("Управление инициативами", "SelectSuggestion", "CI")</li>
-                            <li>@Html.ActionLink("Написать заключение", "SelectSuggestion", "Expert")</li>
+                            @if(User.Identity.IsAuthenticated){
+                                <li>@Html.ActionLink("Подача инициативы", "SubmitSuggestion", "User")</li>
+                                <li>@Html.ActionLink("Просмотр своих инициатив", "ViewOwnSuggestions", "User")</li>
+                            }
+                            @if(User.IsInRole("ci")){
+                                <li>@Html.ActionLink("Управление инициативами", "SelectSuggestion", "CI")</li>
+                            }
+                            @if(User.IsInRole("expert")){
+                                <li>@Html.ActionLink("Написать заключение", "SelectSuggestion", "Expert")</li>
+                            }
                         </ul>
                     </nav>
                 </div>

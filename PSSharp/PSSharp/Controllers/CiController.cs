@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace PSSharp.Controllers
 {
+    [Authorize(Roles = "ci")]
     public class CiController : Controller
     {
         private readonly PSSContext _db = new PSSContext();
@@ -46,7 +47,8 @@ namespace PSSharp.Controllers
         public ActionResult AddDirection(Direction direction)
         {
             //au
-            direction.UserId = 1;
+            var user = _db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
+            direction.UserId = user.UserId;
             if (direction.DepartmentId == null)
             {
                 return RedirectToAction("ManageSuggestion", new { id = direction.SuggestionId });

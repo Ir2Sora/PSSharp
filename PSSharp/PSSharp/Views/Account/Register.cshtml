@@ -1,4 +1,4 @@
-﻿@model PSSharp.Models.RegisterModel
+﻿@model PSSharp.Models.User
 @{
     ViewBag.Title = "Регистрация";
 }
@@ -17,8 +17,8 @@
         <legend>Форма регистрации</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
+                @Html.LabelFor(m => m.Login)
+                @Html.TextBoxFor(m => m.Login)
             </li>
             <li>
                 @Html.LabelFor(m => m.Password)
@@ -27,6 +27,26 @@
             <li>
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Surname)
+                @Html.TextBoxFor(m => m.Surname)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Patronymic)
+                @Html.TextBoxFor(m => m.Patronymic)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.DepartmentId)
+                @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>)ViewData["Departments"])
             </li>
         </ol>
         <input type="submit" value="Регистрация" />

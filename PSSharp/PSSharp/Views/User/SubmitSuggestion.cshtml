@@ -14,14 +14,14 @@
         $(function () {
             $("form").validate();
         });
-        function OnComplete(data) {
+        function OnSuccess(data) {
             $('textarea').val('');
             alert("Инициатива успешно подана");
         }
         function OnFailure(request, error) {
             alert("Произошла ошибка. Свяжитесь с администратором");
         }
-        function OnSuccess(data) {
+        function OnComplete(data) {
             $('#send').removeAttr("disabled");
             $('#send').attr('value', 'Отправить');
         }
@@ -45,19 +45,22 @@
                 <td>
                     <label for="Problem">Проблема</label></td>
                 <td>
-                    <textarea id="Problem" name="Problem" rows="6" class="required"></textarea></td>
+                    <textarea id="Problem" name="Problem" rows="6" class="required"></textarea>
+                </td>
             </tr>
             <tr>
                 <td>
                     <label for="Solution">Решение</label></td>
                 <td>
-                    <textarea id="Solution" name="Solution" rows="6" class="required"></textarea></td>
+                    <textarea id="Solution" name="Solution" rows="6" class="required"></textarea>
+                </td>
             </tr>
             <tr>
                 <td>
                     <label for="Result">Результат</label></td>
                 <td>
-                    <textarea id="Result" name="Result" rows="6" class="required"></textarea></td>
+                    <textarea id="Result" name="Result" rows="6" class="required"></textarea>
+                </td>
             </tr>
         </table>
         <input id="send" type="submit" value="Отправить" />

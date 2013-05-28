@@ -38,7 +38,7 @@ namespace PSSharp.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("PSSContext", "Users", "UserId", "Login", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

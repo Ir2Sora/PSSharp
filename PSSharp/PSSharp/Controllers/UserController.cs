@@ -6,6 +6,7 @@ using PSSharp.Models;
 
 namespace PSSharp.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly PSSContext _db = new PSSContext();
@@ -20,7 +21,8 @@ namespace PSSharp.Controllers
         public ActionResult SubmitSuggestion(Suggestion sugg)
         {
             //au
-            sugg.UserId = 1;
+            var user = _db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
+            sugg.UserId = user.UserId;
             sugg.DateOfReceipt = DateTime.Now;
             sugg.Status = Statuses.Processed;
             _db.Suggestions.Add(sugg);
@@ -31,16 +33,16 @@ namespace PSSharp.Controllers
         public ActionResult ViewOwnSuggestions()
         {
             //au
-            var UserId = 1;
-            var suggestions = _db.Suggestions.Where(s => s.UserId == UserId).ToList();
+            var user = _db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
+            var suggestions = _db.Suggestions.Where(s => s.UserId == user.UserId).ToList();
             return View(suggestions);
         }
 
         public ActionResult ViewNeedImvrovement()
         {
             //au
-            var UserId = 1;
-            var suggestions = _db.Suggestions.Where(s => s.UserId == UserId && s.Status == Statuses.RequireImprovement).ToList();
+            var user = _db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
+            var suggestions = _db.Suggestions.Where(s => s.UserId == user.UserId && s.Status == Statuses.RequireImprovement).ToList();
             return View("ViewOwnSuggestions", suggestions);
         }
 

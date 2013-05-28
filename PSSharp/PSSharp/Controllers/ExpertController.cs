@@ -9,6 +9,7 @@ using PSSharp.Models;
 
 namespace PSSharp.Controllers
 {
+    [Authorize(Roles = "expert")]
     public class ExpertController : Controller
     {
         private readonly PSSContext _db = new PSSContext();
@@ -19,7 +20,7 @@ namespace PSSharp.Controllers
             var direction = _db.Directions.Where(d => d.DirectionId == id)
                                         .Include(d => d.Suggestion)
                                         .Include(d => d.Suggestion.User).First();
-            PeerReview peerReview = new PeerReview {Direction = direction};
+            var peerReview = new PeerReview {Direction = direction};
             return View(peerReview);
         }
 
@@ -27,7 +28,8 @@ namespace PSSharp.Controllers
         public ActionResult WritePeerReview(PeerReview peerReview)
         {
             //au
-            peerReview.UserId = 1;
+            var user = _db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
+            peerReview.UserId = user.UserId;
             peerReview.When = DateTime.Now;
             _db.Entry(peerReview).State = EntityState.Added;
             _db.SaveChanges();
@@ -38,9 +40,10 @@ namespace PSSharp.Controllers
         public ActionResult SelectSuggestion()
         {
             //au
-            int userId = 1;
-            int departmentID = 1;
-            var result = _db.Directions.Where(d => d.DepartmentId == departmentID && d.Status == Statuses.RequestedPeerReview && d.PeerReviews.All(p => p.UserId != userId))
+            var user = _db.Users.First(u => u.Login == HttpContext.User.Identity.Name);
+            int userId = user.UserId;
+            int departmentId = user.DepartmentId;
+            var result = _db.Directions.Where(d => d.DepartmentId == departmentId && d.Status == Statuses.RequestedPeerReview && d.PeerReviews.All(p => p.UserId != userId))
                                         .Include(d => d.Suggestion)
                                         .Include(d => d.Suggestion.User)
                                         .Include(d => d.PeerReviews).ToList();
