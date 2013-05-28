@@ -59,24 +59,24 @@
     <h2>Оценки</h2>
     <table>
         <tr>
-            <th>Эксперт
+            <th style="border: solid black 1px">Эксперт
             </th>
-            <th>Рекомендована
+            <th style="border: solid black 1px">Рекомендована
             </th>
-            <th>Заключение
+            <th style="border: solid black 1px">Заключение
             </th>
         </tr>
 
         @foreach (var item in Model.PeerReviews)
         {
             <tr>
-                <td>
+                <td style="border: solid black 1px">
                     @item.User.View()
                 </td>
-                <td>
+                <td style="border: solid black 1px">
                     @Html.DisplayFor(modelItem => item.Recommended)
                 </td>
-                <td>
+                <td style="border: solid black 1px">
                     @Html.DisplayFor(modelItem => item.Conclusion)
                 </td>
             </tr>

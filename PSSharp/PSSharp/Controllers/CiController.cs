@@ -27,10 +27,10 @@ namespace PSSharp.Controllers
         [HttpPost]
         public ActionResult ManageSuggestion(Suggestion sugg)
         {
-            Suggestion oldSuggestion = _db.Suggestions.First(s => s.SuggestionId == sugg.SuggestionId);
-            Statuses oldStatus = (Statuses) oldSuggestion.Status;
+            var oldSuggestion = _db.Suggestions.First(s => s.SuggestionId == sugg.SuggestionId);
+            var oldStatus = (Statuses) oldSuggestion.Status;
             _db.Entry(oldSuggestion).State = EntityState.Detached;
-            Statuses newStatus = (Statuses) sugg.Status;
+            var newStatus = (Statuses) sugg.Status;
             _db.Entry(sugg).State = EntityState.Modified;
             _db.SaveChanges();
             if (oldStatus != newStatus)
@@ -47,6 +47,10 @@ namespace PSSharp.Controllers
         {
             //au
             direction.UserId = 1;
+            if (direction.DepartmentId == null)
+            {
+                return RedirectToAction("ManageSuggestion", new { id = direction.SuggestionId });
+            }
             direction.When = DateTime.Now;
             direction.Status = Statuses.RequestedPeerReview;
             _db.Entry(direction).State = EntityState.Added;

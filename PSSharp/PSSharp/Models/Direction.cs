@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace PSSharp.Models
@@ -14,7 +13,7 @@ namespace PSSharp.Models
         public virtual int SuggestionId { get; set; }
         public virtual Suggestion Suggestion { get; set; }
         [Display(Name = "Номер отдела")]
-        public virtual int DepartmentId { get; set; }
+        public virtual int? DepartmentId { get; set; }
         public virtual Department Department { get; set; }
         [Display(Name = "Статус")]
         public virtual Statuses Status { get; set; }

@@ -7,6 +7,12 @@
 
 <h2>@ViewBag.Title</h2>
 
+<script>
+    $(document).ready(function () {
+        $("form").validate();
+    });
+</script>
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -60,7 +66,7 @@
             @Html.LabelFor(model => model.Conclusion)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Conclusion)
+            @Html.TextAreaFor(model => model.Conclusion, new { @class = "required" })
             @Html.ValidationMessageFor(model => model.Conclusion)
         </div>
 

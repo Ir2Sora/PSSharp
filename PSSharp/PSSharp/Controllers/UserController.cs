@@ -58,9 +58,13 @@ namespace PSSharp.Controllers
         [HttpPost]
         public ActionResult EditOwnSuggestion(Suggestion sugg)
         {
-            _db.Entry(sugg).State = EntityState.Modified;
+            Suggestion fromDB = _db.Suggestions.First(s => s.SuggestionId == sugg.SuggestionId);
+            fromDB.Problem = sugg.Problem;
+            fromDB.Result = sugg.Result;
+            fromDB.Solution = sugg.Solution;
+            fromDB.Status = Statuses.Processed;
             _db.SaveChanges();
-            return View(sugg);
+            return View(fromDB);
         }
     }
 }

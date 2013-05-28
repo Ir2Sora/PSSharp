@@ -8,6 +8,12 @@
 
 <h2>@ViewBag.Title</h2>
 
+<script type="text/javascript">
+    $(function () {
+        $("form").validate();
+    });
+</script>
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -38,7 +44,7 @@
             @if (Model.NeedImrovement())
             {
                 <div class="editor-label">
-                    @Html.EditorFor(model => model.Problem)
+                    @Html.TextAreaFor(model => model.Problem, new { @class = "required" }) 
                     @Html.ValidationMessageFor(model => model.Problem)
                 </div>
             }
@@ -57,7 +63,7 @@
             @if (Model.NeedImrovement())
             {
                 <div class="editor-label">
-                    @Html.EditorFor(model => model.Solution)
+                    @Html.TextAreaFor(model => model.Solution, new { @class = "required" }) 
                     @Html.ValidationMessageFor(model => model.Solution)
                 </div>
             }
@@ -76,8 +82,7 @@
             @if (Model.NeedImrovement())
             {
                 <div class="editor-label">
-                    @Html.EditorFor(model => model.Result)
-                    @Html.ValidationMessageFor(model => model.Result)
+                    @Html.TextAreaFor(model => model.Result, new { @class = "required" }) 
                 </div>
             }
             else
@@ -102,12 +107,10 @@
             @Model.DateOfConsiderationView()
         </div>
 
-        @Html.HiddenFor(model => model.UserId)
-
         @if (Model.NeedImrovement())
         {
             <p>
-                <input type="submit" value="Save" />
+                <input type="submit" value="Отправить" />
             </p>
         }
     </fieldset>
