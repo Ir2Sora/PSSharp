@@ -1,0 +1,54 @@
+﻿@model PSSharp.Models.Department
+
+@{
+    ViewBag.Title = "Добавить отдел";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<script>
+    $(document).ready(function () {
+        $("#mainForm").validate();
+    });
+</script>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "mainForm" })){
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Department</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FullName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.FullName, new { @class = "required" }) 
+            @Html.ValidationMessageFor(model => model.FullName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShortName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ShortName, new { @class = "required" }) 
+            @Html.ValidationMessageFor(model => model.ShortName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Number)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Number) 
+            @Html.ValidationMessageFor(model => model.Number)
+        </div>
+
+        <p>
+            <input type="submit" value="Добавить" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

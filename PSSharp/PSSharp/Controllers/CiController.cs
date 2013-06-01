@@ -106,5 +106,40 @@ namespace PSSharp.Controllers
                                });
             return departments.ToList();
         }
+
+        public ActionResult ListDepartments()
+        {
+            var departments = _db.Departments.ToList();
+            return View(departments);
+        }
+
+        [HttpGet]
+        public ActionResult EditDepartment(int id)
+        {
+            var department = _db.Departments.First(d => d.DepartmentId == id);
+            return View(department);
+        }
+
+        [HttpPost]
+        public ActionResult EditDepartment(Department dep)
+        {
+            _db.Entry(dep).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("ListDepartments");
+        }
+
+        [HttpGet]
+        public ActionResult AddDepartment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddDepartment(Department dep)
+        {
+            _db.Entry(dep).State = EntityState.Added;
+            _db.SaveChanges();
+            return RedirectToAction("ListDepartments");
+        }
     }
 }

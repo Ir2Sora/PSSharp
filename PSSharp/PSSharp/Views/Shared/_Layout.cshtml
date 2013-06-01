@@ -13,7 +13,6 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/scripts/jquery-ui-1.10.3.js")
         @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
-        @Scripts.Render("~/scripts/jquery.jqGrid.min.js")
         @Scripts.Render("~/scripts/jquery.validate.js")
         @Scripts.Render("~/scripts/grid.locale-ru.js")
     </head>
@@ -35,6 +34,7 @@
                             }
                             @if(User.IsInRole("ci")){
                                 <li>@Html.ActionLink("Управление инициативами", "SelectSuggestion", "CI")</li>
+                                <li>@Html.ActionLink("Просмотр отделов", "ListDepartments", "CI")</li>
                             }
                             @if(User.IsInRole("expert")){
                                 <li>@Html.ActionLink("Написать заключение", "SelectSuggestion", "Expert")</li>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PSSharp.Models.Department>
+
+@{
+    ViewBag.Title = "Список отделов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "AddDepartment")
+</p>
+<table>
+    <tr>
+        <th style="border: solid black 1px">
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th style="border: solid black 1px">
+            @Html.DisplayNameFor(model => model.ShortName)
+        </th>
+        <th style="border: solid black 1px">
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th style="border: solid black 1px"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="border: solid black 1px">
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td style="border: solid black 1px">
+            @Html.DisplayFor(modelItem => item.ShortName)
+        </td>
+        <td style="border: solid black 1px">
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td style="border: solid black 1px">
+            @Html.ActionLink("Редактировать", "EditDepartment", new { id=item.DepartmentId })
+        </td>
+    </tr>
+}
+
+</table>

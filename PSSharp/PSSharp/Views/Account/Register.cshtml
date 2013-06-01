@@ -11,7 +11,6 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
 
     <fieldset>
         <legend>Форма регистрации</legend>
@@ -19,10 +18,12 @@
             <li>
                 @Html.LabelFor(m => m.Login)
                 @Html.TextBoxFor(m => m.Login)
+                @Html.ValidationMessageFor(m => m.Login)
             </li>
             <li>
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
             </li>
             <li>
                 @Html.LabelFor(m => m.ConfirmPassword)
@@ -31,18 +32,22 @@
             <li>
                 @Html.LabelFor(m => m.FirstName)
                 @Html.TextBoxFor(m => m.FirstName)
+                @Html.ValidationMessageFor(m => m.FirstName)
             </li>
             <li>
                 @Html.LabelFor(m => m.Surname)
                 @Html.TextBoxFor(m => m.Surname)
+                @Html.ValidationMessageFor(m => m.Surname)
             </li>
             <li>
                 @Html.LabelFor(m => m.Patronymic)
                 @Html.TextBoxFor(m => m.Patronymic)
+                @Html.ValidationMessageFor(m => m.Patronymic)
             </li>
             <li>
                 @Html.LabelFor(m => m.Email)
                 @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
             </li>
             <li>
                 @Html.LabelFor(m => m.DepartmentId)

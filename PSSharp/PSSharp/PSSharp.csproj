@@ -301,7 +301,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -350,6 +352,9 @@
     <Content Include="Views\Expert\WritePeerReview.cshtml" />
     <Content Include="Views\Expert\SelectSuggestion.cshtml" />
     <Content Include="Views\Email\EmailView.html.cshtml" />
+    <Content Include="Views\Ci\ListDepartments.cshtml" />
+    <Content Include="Views\Ci\EditDepartment.cshtml" />
+    <Content Include="Views\Ci\AddDepartment.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

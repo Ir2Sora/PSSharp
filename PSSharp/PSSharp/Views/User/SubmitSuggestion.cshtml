@@ -12,7 +12,7 @@
 
     <script type="text/javascript">
         $(function () {
-            $("form").validate();
+            $("#ajaxform").validate();
         });
         function OnSuccess(data) {
             $('textarea').val('');
@@ -31,13 +31,13 @@
         }
     </script>
 
-    @using (Ajax.BeginForm("SubmitSuggestion", new AjaxOptions
+    @using (Ajax.BeginForm("SubmitSuggestion", "User", new AjaxOptions
                                                     {
                                                         OnFailure = "OnFailure",
                                                         OnSuccess = "OnSuccess",
                                                         OnComplete = "OnComplete",
                                                         OnBegin = "OnBegin",
-                                                    }))
+                                                    }, new { @id = "ajaxform" }))
     {
 
         <table>
