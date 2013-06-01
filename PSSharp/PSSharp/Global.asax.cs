@@ -24,5 +24,6 @@ namespace PSSharp
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
         }
+
     }
 }

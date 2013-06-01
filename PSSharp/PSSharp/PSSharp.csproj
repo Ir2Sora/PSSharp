@@ -355,6 +355,8 @@
     <Content Include="Views\Ci\ListDepartments.cshtml" />
     <Content Include="Views\Ci\EditDepartment.cshtml" />
     <Content Include="Views\Ci\AddDepartment.cshtml" />
+    <Content Include="Views\Ci\SelectUser.cshtml" />
+    <Content Include="Views\Ci\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

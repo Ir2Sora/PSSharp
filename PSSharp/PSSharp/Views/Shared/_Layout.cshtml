@@ -33,8 +33,8 @@
                                 <li>@Html.ActionLink("Просмотр своих инициатив", "ViewOwnSuggestions", "User")</li>
                             }
                             @if(User.IsInRole("ci")){
-                                <li>@Html.ActionLink("Управление инициативами", "SelectSuggestion", "CI")</li>
-                                <li>@Html.ActionLink("Просмотр отделов", "ListDepartments", "CI")</li>
+                                <li>@Html.ActionLink("Управление инициативами", "SelectSuggestion", "Ci")</li>
+                                <li>@Html.ActionLink("Редактирование пользователей", "SelectUser", "Ci")</li>
                             }
                             @if(User.IsInRole("expert")){
                                 <li>@Html.ActionLink("Написать заключение", "SelectSuggestion", "Expert")</li>

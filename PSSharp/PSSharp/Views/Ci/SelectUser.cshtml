@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Редактирование пользователя";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<script type="text/javascript">
+    $(function () {
+        $("#ajaxform").validate();
+    });
+</script>
+
+<div>
+    @using (Ajax.BeginForm("SelectUser", "Ci", new AjaxOptions { UpdateTargetId = "ajaxEditUser" }, new { @id = "ajaxform" }))
+    {
+        <div class="editor-label">
+            @Html.Label("Логин")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("Login", null, new { @class = "required" })
+            @Html.ValidationMessage("Login")
+        </div>
+        <input type="submit" value="Поиск" />
+    }
+    @Html.Partial("EditUser")
+</div>

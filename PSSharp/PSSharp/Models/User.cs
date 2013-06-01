@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -48,9 +49,12 @@ namespace PSSharp.Models
         public virtual int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
 
+        [NotMapped]
+        public string[] Roles { get; set; }
+
         public string View()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(Surname)
               .Append(" ")
               .Append(FirstName.Substring(0, 1))

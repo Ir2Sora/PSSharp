@@ -1,0 +1,108 @@
+﻿@model PSSharp.Models.User
+
+<div id="ajaxEditUser">
+    
+    <script type="text/javascript">
+        function OnSuccess(data) {
+            alert("Изменения сохранены");
+        }
+        function OnFailure(request, error) {
+            alert("Произошла ошибка. Свяжитесь с администратором");
+        }
+        function OnComplete(data) {
+            $('#send').removeAttr("disabled");
+            $('#send').attr('value', 'Сохранить');
+        }
+        function OnBegin(request, error) {
+            $('#send').attr('disabled', 'disabled');
+            $('#send').attr('value', 'Обработка');
+        }
+        
+    </script>
+
+    @if (Model != null)
+    {
+        Html.EnableClientValidation(false);
+        using (Ajax.BeginForm("EditUser", "Ci", new AjaxOptions
+            {
+                OnFailure = "OnFailure",
+                OnSuccess = "OnSuccess",
+                OnComplete = "OnComplete",
+                OnBegin = "OnBegin",
+            }, new { id = "editUserForm" }))
+        {
+
+            <fieldset>
+                <legend>User</legend>
+
+                @Html.HiddenFor(model => model.Login)
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Surname)
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Surname)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FirstName)
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.FirstName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Patronymic)
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Patronymic)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Login)
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Login)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Email)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DepartmentId)
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Department.ShortName)
+                </div>
+
+                <div style="background-color: #d3d3d3">
+
+                    <div class="editor-label">
+                        @Html.Label("Роли")
+                    </div>
+
+                    <table>
+                        @foreach (var role in Roles.GetAllRoles())
+                        {
+                            <tr>
+                                <td>
+                                    <label for="@role">@role</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="@role" name="Roles" value="@role" checked="@Roles.IsUserInRole(Model.Login, role)">
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                    <p>
+                        <input id="send" type="submit" value="Сохранить" />
+                    </p>
+                </div>
+            </fieldset>
+        }
+    }
+</div>

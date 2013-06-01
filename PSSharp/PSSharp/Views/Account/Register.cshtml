@@ -4,7 +4,6 @@
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
     <h2>Создание новой учетной записи.</h2>
 </hgroup>
 
@@ -30,14 +29,14 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
             <li>
-                @Html.LabelFor(m => m.FirstName)
-                @Html.TextBoxFor(m => m.FirstName)
-                @Html.ValidationMessageFor(m => m.FirstName)
-            </li>
-            <li>
                 @Html.LabelFor(m => m.Surname)
                 @Html.TextBoxFor(m => m.Surname)
                 @Html.ValidationMessageFor(m => m.Surname)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName)
+                @Html.ValidationMessageFor(m => m.FirstName)
             </li>
             <li>
                 @Html.LabelFor(m => m.Patronymic)

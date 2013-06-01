@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Objects.SqlClient;
 using System.Web.Mvc;
+using System.Web.Security;
 using PSSharp.Models;
 using System.Linq;
 
@@ -140,6 +141,37 @@ namespace PSSharp.Controllers
             _db.Entry(dep).State = EntityState.Added;
             _db.SaveChanges();
             return RedirectToAction("ListDepartments");
+        }
+
+        [HttpGet]
+        public ActionResult SelectUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SelectUser(User find)
+        {
+            var user = _db.Users.Where(u => u.Login == find.Login).Include(u => u.Department).First();
+            user.Roles = Roles.GetRolesForUser(user.Login);
+            return PartialView("EditUser", user);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(User user)
+        {
+            var origRoles = Roles.GetRolesForUser(user.Login);
+            var rolesForAdd = user.Roles.Except(origRoles).ToArray();
+            var rolesForDelete = origRoles.Except(user.Roles).ToArray();
+            if (rolesForAdd.Length != 0)
+            {
+                Roles.AddUserToRoles(user.Login, rolesForAdd);
+            }
+            if (rolesForDelete.Length != 0)
+            {
+                Roles.RemoveUserFromRoles(user.Login, rolesForDelete);
+            }
+            return new EmptyResult();
         }
     }
 }
